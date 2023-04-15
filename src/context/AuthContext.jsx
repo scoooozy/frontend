@@ -34,7 +34,9 @@ export const AuthProvider = (props) => {
     setLoading(true);
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
+      setLoading(true);
       await updateUserProfile(user, { displayName: userName });
+      setLoading(false);
       return user;
     } catch (error) {
       console.log(error);
@@ -55,8 +57,7 @@ export const AuthProvider = (props) => {
     return watcher;
   }, []);
   return (
-    <AuthContext.Provider value={value}>
-      {!loading && props.children}
+    <AuthContext.Provider value={value}>s
     </AuthContext.Provider>
   );
 };

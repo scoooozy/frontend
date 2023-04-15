@@ -1,15 +1,16 @@
 import React from "react";
 import { useAuth } from "./context/AuthContext";
-
+import Navbar from "./components/Navbar/Navbar";
+import "./App.css"
 const App = () => {
   const { login, register, user, logout } = useAuth();
 
   const handleLogin = () => {
-    login("spoopy@gmail.com", "qwerty");
+    login("spoopyyy19@gmail.com", "qwerty");
   };
 
   const handleRegister = async () => {
-    await register("spoopyyy11@gmail.com", "qwerty", "Aboba");
+    await register("spoopyyy19@gmail.com", "qwerty", "Aboba");
   };
 
   const handleLogout = () => {
@@ -18,6 +19,7 @@ const App = () => {
 
   return (
     <div>
+      <Navbar/>
       {!user ? (
         <div>
           <button onClick={handleLogin}>login</button>
