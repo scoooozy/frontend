@@ -6,6 +6,7 @@ import {
   updateProfile,
   signOut,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -20,7 +21,7 @@ export const AuthProvider = (props) => {
 
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate()
   const updateUserProfile = async (user, data) => {
     try {
       await updateProfile(user, data);
@@ -46,6 +47,7 @@ export const AuthProvider = (props) => {
 
   const logout = () => {
     return signOut(auth);
+    
   };
 
   const value = { user, login, register, updateUserProfile, logout, setUser };
@@ -53,11 +55,18 @@ export const AuthProvider = (props) => {
     const watcher = auth.onAuthStateChanged((user) => {
       setUser(user);
       setLoading(false);
+      navigate("/login")
     });
     return watcher;
   }, []);
+  useEffect(() => {
+    if (user == null) {
+      navigate("/login")
+    }
+  },[user])
   return (
-    <AuthContext.Provider value={value}>s
+    <AuthContext.Provider value={value}>
+      {!loading && props.children}
     </AuthContext.Provider>
   );
 };

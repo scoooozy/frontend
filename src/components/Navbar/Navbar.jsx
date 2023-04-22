@@ -11,12 +11,15 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import { useAuth } from "../../context/AuthContext"
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+const pages = [
+  'Timezones'
+];
 
 function Navbar() {
+  const {logout } = useAuth();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -25,6 +28,9 @@ function Navbar() {
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
+  };
+  const handleLogout = () => {
+    logout();
   };
 
   const handleCloseNavMenu = () => {
@@ -75,25 +81,6 @@ function Navbar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
@@ -128,11 +115,12 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+               <MenuItem  onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Settings</Typography>
+              </MenuItem>
+              <MenuItem  onClick={handleLogout}>
+                  <Typography textAlign="center">Logout</Typography>
                 </MenuItem>
-              ))}
             </Menu>
           </Box>
         </Toolbar>
