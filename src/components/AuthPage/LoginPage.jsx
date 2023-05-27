@@ -25,6 +25,7 @@ function BoxSx(props) {
 }
 
 const LoginPage = () => {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -56,6 +57,7 @@ const LoginPage = () => {
             onChange={(event) => {
               setEmail(event.target.value);
             }}
+            type='email'
           />
           <TextField
             size="small"
@@ -66,6 +68,7 @@ const LoginPage = () => {
             onChange={(event) => {
               setPassword(event.target.value)
             }}
+            type='password'
           />
 
           <Button variant="contained" onClick={handleLogin}>
@@ -74,7 +77,7 @@ const LoginPage = () => {
 
           <p className="registerText">
             Don't have an acoount? Click here to{" "}
-            <button className="registerButton" onClick={handleRegister}>
+            <button className="registerButton" onClick={() => { navigate("/register") }}>
               register
             </button>
           </p>

@@ -55,7 +55,13 @@ export const AuthProvider = (props) => {
     const watcher = auth.onAuthStateChanged((user) => {
       setUser(user);
       setLoading(false);
-      navigate("/login")
+      if (user) {
+        navigate("/")
+      }
+      else {
+        navigate("/login")
+
+      }
     });
     return watcher;
   }, []);
